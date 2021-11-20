@@ -30,7 +30,13 @@ const shouldNotify = () => {
 //	} else {
 //		console.log('same same..')
 //	}
-	console.log(process.env.NODE_ENV)
-	console.log(process.env.PUSHSAFER_KEY)
+// notifyPavlos()
+	console.log({a: process.env.NODE_ENV,
+		b: process.env.PUSHSAFER_KEY})
+	if (process.env.PUSHSAFER_KEY !== undefined) {
+		console.log('ok')
+	} else {
+		console.log('und')
+	}
 })()
 
