@@ -1,0 +1,13 @@
+name: do-it
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+
+jobs:
+  do-it:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: do it
+        run: node index.js
