@@ -1,0 +1,11 @@
+name: do-it
+
+on: workflow_dispatch
+
+jobs:
+  do-it:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: do it
+        run: node index.js
