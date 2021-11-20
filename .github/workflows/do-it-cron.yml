@@ -1,9 +1,11 @@
-name: do-it
+name: do-it-cron
 
-on: workflow_dispatch
+on:
+  schedule:
+    - cron: "*/5 * * * *"
 
 jobs:
-  do-it:
+  do-it-cron:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
