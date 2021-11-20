@@ -2,6 +2,9 @@
   "name": "curator",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "do-it": "node index.js"
+  },
   "license": "MIT",
   "dependencies": {
     "playwright": "^1.16.3",

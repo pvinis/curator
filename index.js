@@ -1,8 +1,6 @@
 const fs = require('fs')
 const {chromium} = require('playwright')
-
-const previousFile = 'out.txt'
-const nextFile = 'out-new.txt'
+const {notifyPavlos} = require('./notify')
 
 let html = ''
 
@@ -25,10 +23,14 @@ const shouldNotify = () => {
 }
 
 (async () => {
-	await fetchAndSave()
-	if (shouldNotify()) {
-		console.log('will notify!!')
-	} else {
-		console.log('same same..')
-	}
+//	Await fetchAndSave()
+//	if (shouldNotify()) {
+//		console.log('will notify!!')
+//		notifyPavlos()
+//	} else {
+//		console.log('same same..')
+//	}
+	console.log(process.env.NODE_ENV)
+	console.log(process.env.PUSHSAFER_KEY)
 })()
+

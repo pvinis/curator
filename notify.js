@@ -1,8 +1,6 @@
 const push = require('pushsafer-notifications')
 
-const p = new push({
-	k: process.env.PUSHSAFER_KEY,
-})
+const p = new push({k: process.env.PUSHSAFER_KEY})
 
 const notifyPavlos = async () => {
 	const message = {
@@ -11,8 +9,9 @@ const notifyPavlos = async () => {
 		d: '29625',
 	}
 
-	// p.send(message)
-    console.log(process.env)
+	p.send(message)
 }
 
-notifyPavlos()
+module.exports = {
+	notifyPavlos,
+}
