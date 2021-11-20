@@ -19,24 +19,16 @@ const fetchAndSave = async () => {
 }
 
 const shouldNotify = () => {
-	return html.includes('position')
+	return html.includes('wow test')
 }
 
 (async () => {
-//	Await fetchAndSave()
-//	if (shouldNotify()) {
-//		console.log('will notify!!')
-//		notifyPavlos()
-//	} else {
-//		console.log('same same..')
-//	}
-// notifyPavlos()
-	console.log({a: process.env.NODE_ENV,
-		b: process.env.PUSHSAFER_KEY})
-	if (process.env.PUSHSAFER_KEY !== undefined) {
-		console.log('ok')
+	await fetchAndSave()
+	if (shouldNotify()) {
+		console.log('will notify!!')
+		notifyPavlos()
 	} else {
-		console.log('und')
+		console.log('same same..')
 	}
 })()
 
