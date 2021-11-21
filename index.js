@@ -40,6 +40,10 @@ const sleep = ms => {
  return new Promise(resolve => setTimeout(resolve, ms)) 
 }
 
+
+
+
+
 (async () => {
 	console.log('checking for 9')
 	await fetch(9, '18:30')
