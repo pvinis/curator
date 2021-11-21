@@ -1,16 +1,11 @@
 const push = require('pushsafer-notifications')
 
-
-console.log (process.env.PUSHSAFER_KEY[3])
-console.log(process.env.PUSHSAFER_KEY[3] === "H" ? "wow" : "damn")
-
-
 const p = new push({k: process.env.PUSHSAFER_KEY})
 
-const notifyPavlos = async () => {
+const notifyPavlos = async (day) => {
 	const message = {
 		t: 'GOOOO!',
-		m: 'check for reservation now!',
+		m: `check for reservation now for ${day}!`,
 		d: '29625',
 	}
 
