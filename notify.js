@@ -1,5 +1,10 @@
 const push = require('pushsafer-notifications')
 
+
+console.log (process.env.PUSHSAFER_KEY[3])
+console.log(process.env.PUSHSAFER_KEY[3] === "H" ? "wow" : "damn")
+
+
 const p = new push({k: process.env.PUSHSAFER_KEY})
 
 const notifyPavlos = async () => {
