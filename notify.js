@@ -4,8 +4,8 @@ const p = new push({k: process.env.PUSHSAFER_KEY})
 
 const notifyPavlos = async () => {
 	const message = {
-		t: 'Let\'s GOOOO!',
-		m: 'check now!',
+		t: 'GOOOO!',
+		m: 'check for reservation now!',
 		d: '29625',
 	}
 
