@@ -3,6 +3,7 @@ name: do-it-cron
 on:
   schedule:
     - cron: "*/5 * * * *"
+  workflow_dispatch:
 
 env:
   PUSHSAFER_KEY: ${{ secrets.PUSHSAFER_KEY }}
