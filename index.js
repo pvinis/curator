@@ -45,14 +45,14 @@ const sleep = ms => {
 
 
 (async () => {
-	console.log('checking for 9')
-	await fetch(9, '18:30')
-	if (shouldNotify("6:30")) {
-	console.log('will notify for 9!!')
-	notifyPavlos(9)
-	} else {
-	console.log('same same for 9..')
-	}
+	//console.log('checking for 9')
+	//await fetch(9, '18:30')
+	//if (shouldNotify("6:30")) {
+	//console.log('will notify for 9!!')
+	//notifyPavlos(9)
+	//} else {
+	//console.log('same same for 9..')
+	//}
 
 	console.log('checking for 6')
 	await fetch(6, "19:00")
