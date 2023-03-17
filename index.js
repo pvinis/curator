@@ -8,22 +8,7 @@ const fetch = async (day, time) => {
 	const context = await browser.newContext()
 	const page = await context.newPage()
 
-	await page.goto('https://www.opentable.com/restref/client/?restref=100438')
-
-	// Select 3
-	await page.selectOption('[aria-label="Party size"]', '3')
-
-	// Click [aria-label="Date"]
-	await page.click('[aria-label="Date"]')
-
-	// Click text=567891011 >> [aria-label="day-9"]
-	await page.click(`text=567891011 >> [aria-label="day-${day}"]`)
-
-	// Select 18:30
-	await page.selectOption('[aria-label="Reservation time"]', time)
-
-	// Click button:has-text("Find a table")
-	await page.click('button:has-text("Find a table")')
+	await page.goto('https://www.mariesauvage.com/public-events')
 
 	await sleep(3000)
 	html = await page.content()
@@ -34,7 +19,7 @@ const fetch = async (day, time) => {
 	await browser.close()
 }
 
-const shouldNotify = time => !html.includes(`no online availability within 2.5 hours of ${time} pm`)
+const shouldNotify = () => !html.includes("London - May 5 tickets soon") || !html.includes("London- Miss X produced by Skirt Club, May 6, tickets soon")
 
 const sleep = ms => {
  return new Promise(resolve => setTimeout(resolve, ms)) 
