@@ -1,0 +1,23 @@
+name: do-it-cron
+
+on:
+  schedule:
+    - cron: "0 17 * * *"
+  workflow_dispatch:
+
+env:
+  PUSHSAFER_KEY: ${{ secrets.PUSHSAFER_KEY }}
+
+jobs:
+  do-it-cron:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'yarn'
+      - run: yarn install
+      - name: do it
+        run: node index.js
+        
