@@ -1,12 +1,12 @@
-const push = require('pushsafer-notifications')
+require("dotenv").config()
+const push = require("pushsafer-notifications")
 
-const p = new push({k: process.env.PUSHSAFER_KEY})
+const p = new push({ k: process.env.PUSHSAFER_KEY })
 
-const notifyPavlos = async (day) => {
+const notifyPavlos = async () => {
 	const message = {
-		t: 'GOOOO!',
-		m: `check for reservation now for ${day}!`,
-		d: '29625',
+		t: "GOOOO!",
+		m: `check for reservation now`,
 	}
 
 	p.send(message)

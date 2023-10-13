@@ -1,12 +1,15 @@
-name: do-it-manual
+name: do-it-cron
 
-on: workflow_dispatch
+on:
+  schedule:
+    - cron: "*/2 * * * *"
+  workflow_dispatch:
 
 env:
   PUSHSAFER_KEY: ${{ secrets.PUSHSAFER_KEY }}
 
 jobs:
-  do-it-manual:
+  do-it-cron:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
