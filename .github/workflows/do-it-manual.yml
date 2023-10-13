@@ -9,13 +9,13 @@ jobs:
   do-it-manual:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: "20"
           cache: "yarn"
       - run: yarn install
       - name: Install playwright browsers
-        run: npx playwright install --with-deps
+        run: yarn playwright install --with-deps
       - name: do it
-        run: node index.js
+        run: yarn do-it

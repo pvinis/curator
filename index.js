@@ -22,7 +22,7 @@ const shouldNotify = () => {
 	const count = (html.match(/Βίκτωρος Ουγκώ 55/g) || []).length
 	console.log("count is", count)
 
-	return count > 1
+	return count > 8
 }
 
 const sleep = (ms) => {
