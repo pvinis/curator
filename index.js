@@ -14,7 +14,7 @@ async function main() {
     page = await context.newPage();
 
     await page.goto(
-      "https://www.more.com/theater/i-anodos-tou-artouro-oui-2os-xronos"
+      "https://www.more.com/theater/oi-gries-pou-mazeuoun-tin-tsouknida-3"
     );
 
     await sleep(3000);
