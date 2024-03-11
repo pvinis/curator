@@ -2,42 +2,50 @@ const { chromium } = require("playwright");
 const { notifyPavlos } = require("./notify");
 
 async function main() {
-  console.log("fetching..");
-  // fetch
-  const browser = await chromium.launch({ headless: true });
-  const context = await browser.newContext();
-  page = await context.newPage();
+  try {
+    console.log("fetching..");
+    // fetch
+    const browser = await chromium.launch({ headless: true });
+    const context = await browser.newContext({
+      // sometimes this is needed
+      userAgent:
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/109.0",
+    });
+    page = await context.newPage();
 
-  await page.goto(
-    "https://www.more.com/theater/i-anodos-tou-artouro-oui-2os-xronos"
-  );
+    await page.goto(
+      "https://www.more.com/theater/i-anodos-tou-artouro-oui-2os-xronos"
+    );
 
-  await sleep(3000);
-  html = await page.content();
+    await sleep(3000);
+    html = await page.content();
 
-  console.log("checking..");
-  // checking
-  const shouldNotify = async () => {
-    // string search
-    // const count = (html.match(/χρόνος/g) || []).length;
+    console.log("checking..");
+    // checking
+    const shouldNotify = async () => {
+      const countItems = (html.match(/Θέατρο ARK - Αθήνα, Αττική/g) || [])
+        .length;
 
-    // class search
-    const count = await page.locator(".eb-button--soldout").count();
+      const countSoldOut = await page.locator(".eb-button--soldout").count();
+      const countPending = (html.match(/μόλις εξαντλήθηκαν/g) || []).length;
 
-    console.log("count is", count);
-    return count < 39;
-  };
+      console.log("count is", countItems, countSoldOut, countPending);
+      return countSoldOut + countPending < countItems;
+    };
 
-  if (await shouldNotify()) {
-    console.log("will notify!!");
-    notifyPavlos();
-  } else {
-    console.log("waiting..");
+    if (await shouldNotify()) {
+      console.log("will notify!!");
+      notifyPavlos();
+    } else {
+      console.log("waiting..");
+    }
+
+    // close all
+    await context.close();
+    await browser.close();
+  } catch (err) {
+    console.log("ERROR!", err);
   }
-
-  // close all
-  await context.close();
-  await browser.close();
 }
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
