@@ -2,11 +2,12 @@ const { chromium } = require("playwright");
 const { notifyPavlos } = require("./notify");
 
 let html = "";
+let page = null;
 
 const fetch = async () => {
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext();
-  const page = await context.newPage();
+  page = await context.newPage();
 
   await page.goto(
     "https://www.more.com/theater/i-anodos-tou-artouro-oui-2os-xronos/"
@@ -20,11 +21,15 @@ const fetch = async () => {
   await browser.close();
 };
 
-const shouldNotify = () => {
-  const count = (html.match(/Βίκτωρος Ουγκώ 55/g) || []).length;
-  console.log("count is", count);
+const shouldNotify = async () => {
+  // string search
+  // const count = (html.match(/χρόνος/g) || []).length;
 
-  return count > 8;
+  // class search
+  const count = await page.locator(".eb-button--soldout").count();
+
+  console.log("count is", count);
+  return count < 39;
 };
 
 const sleep = (ms) => {
@@ -34,7 +39,7 @@ const sleep = (ms) => {
 (async () => {
   console.log("checking..");
   await fetch();
-  if (shouldNotify()) {
+  if (await shouldNotify()) {
     console.log("will notify!!");
     notifyPavlos();
   } else {
