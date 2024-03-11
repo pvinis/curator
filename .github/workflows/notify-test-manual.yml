@@ -6,7 +6,7 @@ env:
   PUSHSAFER_KEY: ${{ secrets.PUSHSAFER_KEY }}
 
 jobs:
-  do-it-manual:
+  notify-manual:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
