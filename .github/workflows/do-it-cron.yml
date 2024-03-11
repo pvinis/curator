@@ -2,7 +2,7 @@ name: do-it-cron
 
 on:
   schedule:
-    - cron: "*/2 * * * *"
+    - cron: "*/1 * * * *"
 
 env:
   PUSHSAFER_KEY: ${{ secrets.PUSHSAFER_KEY }}
