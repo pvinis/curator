@@ -1,0 +1,21 @@
+name: notify-test-manual
+
+on: workflow_dispatch
+
+env:
+  PUSHSAFER_KEY: ${{ secrets.PUSHSAFER_KEY }}
+
+jobs:
+  do-it-manual:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+          cache: "yarn"
+      - run: yarn install
+      - name: Install playwright browsers
+        run: yarn playwright install --with-deps
+      - name: notify test
+        run: yarn notify-test
