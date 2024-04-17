@@ -13,9 +13,9 @@ async function main() {
     });
     page = await context.newPage();
 
-    await page.goto(
-      "https://www.more.com/theater/oi-gries-pou-mazeuoun-tin-tsouknida-3"
-    );
+    const url =
+      "https://www.more.com/theater/oi-gries-pou-mazeuoun-tin-tsouknida-3";
+    await page.goto(url);
 
     await sleep(3000);
     html = await page.content();
@@ -35,7 +35,7 @@ async function main() {
 
     if (await shouldNotify()) {
       console.log("will notify!!");
-      notifyPavlos();
+      notifyPavlos(url);
     } else {
       console.log("waiting..");
     }
