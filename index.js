@@ -1,5 +1,10 @@
-const { chromium } = require("playwright");
+// const { chromium } = require("playwright");
+const { chromium } = require("playwright-extra");
 const { notifyPavlos } = require("./notify");
+
+const stealth = require("puppeteer-extra-plugin-stealth")();
+
+chromium.use(stealth);
 
 async function main() {
   try {
@@ -13,8 +18,7 @@ async function main() {
     });
     page = await context.newPage();
 
-    const url =
-      "https://www.more.com/theater/oi-gries-pou-mazeuoun-tin-tsouknida-3";
+    const url = "https://www.more.com/theater/608-inferno-kykliki";
     await page.goto(url);
 
     await sleep(3000);
@@ -23,14 +27,15 @@ async function main() {
     console.log("checking..");
     // checking
     const shouldNotify = async () => {
-      const countItems = (html.match(/Θέατρο ARK - Αθήνα, Αττική/g) || [])
-        .length;
+      const countItems = (html.match(/060126 - Πλατεία Αττικής/g) || []).length;
 
       const countSoldOut = await page.locator(".eb-button--soldout").count();
       const countPending = (html.match(/μόλις εξαντλήθηκαν/g) || []).length;
 
       console.log("count is", countItems, countSoldOut, countPending);
       return countSoldOut + countPending < countItems;
+      // return true;
+      // return false;
     };
 
     if (await shouldNotify()) {
