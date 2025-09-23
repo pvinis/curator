@@ -18,7 +18,8 @@ async function main() {
     });
     page = await context.newPage();
 
-    const url = "https://www.more.com/theater/608-inferno-kykliki";
+    const url =
+      "https://www.more.com/gr-el/tickets/cinema/karta-ton-10-probolon-2025";
     await page.goto(url);
 
     await sleep(3000);
@@ -27,14 +28,16 @@ async function main() {
     console.log("checking..");
     // checking
     const shouldNotify = async () => {
-      const countItems = (html.match(/060126 - Πλατεία Αττικής/g) || []).length;
+      const countItems = (html.match(/Νύχτες Πρεμιέρας - Αθήνα, Αττική/g) || [])
+        .length;
 
       const countSoldOut = await page.locator(".eb-button--soldout").count();
       const countPending = (html.match(/μόλις εξαντλήθηκαν/g) || []).length;
 
       console.log("count is", countItems, countSoldOut, countPending);
-      return countSoldOut + countPending < countItems;
-      // return true;
+      //   return countSoldOut + countPending < countItems;
+      //   return countItems > countSoldOut;
+      return true;
       // return false;
     };
 
