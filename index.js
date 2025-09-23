@@ -36,8 +36,8 @@ async function main() {
 
       console.log("count is", countItems, countSoldOut, countPending);
       //   return countSoldOut + countPending < countItems;
-      //   return countItems > countSoldOut;
-      return true;
+      return countItems > countSoldOut;
+      //   return true;
       // return false;
     };
 
