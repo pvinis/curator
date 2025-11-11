@@ -16,6 +16,6 @@
     "pushsafer-notifications": "^0.2.0"
   },
   "devDependencies": {
-    "xo": "^0.59.3"
+    "xo": "^1.0.0"
   }
 }
