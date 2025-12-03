@@ -3,7 +3,7 @@ const { notifyPavlos } = require("./notify");
 
 async function main() {
   console.log("will notify!!");
-  notifyPavlos();
+  notifyPavlos("https://su.gr");
 }
 
 (async () => {
