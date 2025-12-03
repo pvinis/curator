@@ -14,32 +14,37 @@ bun install
 
 # Run main scraping application
 bun do-it
-# or
-node index.js
 
 # Test notification system
 bun notify-test
-
-# Linting
-bun xo
 ```
 
 ## Architecture
 
-### Core Components
-- `index.js` - Main application that scrapes ticket availability using Playwright
-- `notify.js` - Push notification module using Pushsafer API
-- `notify-test.js` - Test script for notification functionality
+### Project Structure
+
+```
+src/
+├── index.ts       # Main orchestration
+├── browser.ts     # Playwright setup and page fetching
+├── scanners.ts    # Ticket availability checking functions
+├── notify.ts      # Push notification module
+├── notify-test.ts # Test script for notifications
+└── types.ts       # Shared TypeScript interfaces
+```
 
 ### Key Dependencies
+
 - **Playwright Extra** - Web scraping with stealth mode to avoid bot detection
 - **Pushsafer** - Push notification service
-- **XO** - JavaScript linter with semicolon-free style
+- **Bun** - Runtime and package manager
 
 ### Configuration
-- Uses `mise.toml` for tool version management (bun 1, node 24)
+
+- Uses `mise.toml` for tool version management
 - Environment variables required: `PUSHSAFER_KEY` (see .env.sample)
-- XO linting configured without semicolons in `xo.config.js`
+- TypeScript with Bun types
 
 ### Web Scraping Strategy
+
 The application uses Playwright with puppeteer-extra stealth plugin and a Firefox user agent to scrape ticket availability. It monitors specific DOM elements and text patterns to determine if tickets are available.
