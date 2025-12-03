@@ -3,8 +3,8 @@
   "version": "2.0.0",
   "type": "module",
   "scripts": {
-    "do-it": "bun index.ts",
-    "notify-test": "bun notify-test.ts",
+    "do-it": "bun src/index.ts",
+    "notify-test": "bun src/notify-test.ts",
     "postinstall": "playwright install chromium"
   },
   "license": "MIT",

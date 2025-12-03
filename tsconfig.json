@@ -11,5 +11,5 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true
   },
-  "include": ["*.ts", "types.d.ts"]
+  "include": ["src/**/*.ts", "*.ts", "types.d.ts"]
 }
