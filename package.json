@@ -1,21 +1,21 @@
 {
   "name": "curator",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "2.0.0",
+  "type": "module",
   "scripts": {
-    "do-it": "node index.js",
-    "notify-test": "node notify-test.js",
+    "do-it": "bun src/index.ts",
+    "notify-test": "bun src/notify-test.ts",
     "postinstall": "playwright install chromium"
   },
   "license": "MIT",
   "dependencies": {
-    "dotenv": "^16.4.5",
-    "playwright": "^1.48.1",
+    "playwright": "^1.57.0",
     "playwright-extra": "^4.3.6",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
     "pushsafer-notifications": "^0.2.0"
   },
   "devDependencies": {
-    "xo": "^0.59.3"
+    "@types/bun": "latest",
+    "prettier": "3.7.4"
   }
 }
