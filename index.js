@@ -4,7 +4,49 @@ const { notifyPavlos } = require("./notify");
 
 const stealth = require("puppeteer-extra-plugin-stealth")();
 
+// turn this to ts and bun script
 chromium.use(stealth);
+
+async function scanForAnyOpen() {
+  // checking
+  const countItems = (html.match(/Νύχτες Πρεμιέρας - Αθήνα, Αττική/g) || [])
+    .length;
+
+  const countSoldOut = await page.locator(".eb-button--soldout").count();
+  const countPending = (html.match(/μόλις εξαντλήθηκαν/g) || []).length;
+  console.log("count is", countItems, countSoldOut, countPending);
+  // return countSoldOut + countPending < countItems;
+  return countItems > countSoldOut;
+  // return true;
+  // return false;
+}
+
+async function scanForSpecific(dates) {
+  // Extract event data from the page's initCalendar JSON
+  const match = html.match(/scheduleDisplay\.initCalendar\((\{.*?\})\)/s);
+  if (!match) {
+    console.log("Could not find event data");
+    return false;
+  }
+
+  const eventsData = JSON.parse(match[1]);
+  const events = eventsData.events || [];
+
+  for (const date of dates) {
+    const event = events.find((e) => e.day === date);
+    if (event) {
+      console.log(`${date}: isSoldout=${event.isSoldout}`);
+      if (!event.isSoldout) {
+        console.log(`🎟️ Tickets available for ${date}!`);
+        return true;
+      }
+    } else {
+      console.log(`${date}: event not found`);
+    }
+  }
+
+  return false;
+}
 
 async function main() {
   try {
@@ -19,29 +61,18 @@ async function main() {
     page = await context.newPage();
 
     const url =
-      "https://www.more.com/gr-el/tickets/cinema/karta-ton-10-probolon-2025";
+      "https://www.more.com/gr-el/tickets/theater/aneksartita-krati-2os-xronos/";
     await page.goto(url);
 
     await sleep(3000);
     html = await page.content();
 
     console.log("checking..");
-    // checking
-    const shouldNotify = async () => {
-      const countItems = (html.match(/Νύχτες Πρεμιέρας - Αθήνα, Αττική/g) || [])
-        .length;
 
-      const countSoldOut = await page.locator(".eb-button--soldout").count();
-      const countPending = (html.match(/μόλις εξαντλήθηκαν/g) || []).length;
+    // const shouldNotify = await scanForAnyOpen()
+    const shouldNotify = await scanForSpecific(["2025-12-07", "2025-12-14"]);
 
-      console.log("count is", countItems, countSoldOut, countPending);
-      //   return countSoldOut + countPending < countItems;
-      return countItems > countSoldOut;
-      //   return true;
-      // return false;
-    };
-
-    if (await shouldNotify()) {
+    if (await shouldNotify) {
       console.log("will notify!!");
       notifyPavlos(url);
     } else {
